@@ -57,7 +57,7 @@ class Home extends StatelessWidget {
           Expanded(
             child: Container(
               child: ListView(
-                padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                padding: EdgeInsets.fromLTRB(0, 10, 0, 20),
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -129,22 +129,36 @@ class Home extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        elevation: 12,
-        currentIndex: 0,
-        selectedItemColor: Colors.pink,
-        backgroundColor: Colors.white,
-        unselectedItemColor: Colors.grey,
-        type: BottomNavigationBarType.fixed,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'home'),
-          BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.tune), label: ''),
-        ],
+      bottomNavigationBar: Container(
+        clipBehavior: Clip.hardEdge,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(12),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey[400],
+              blurRadius: 10,
+              spreadRadius: 3,
+            ),
+          ],
+        ),
+        child: BottomNavigationBar(
+          elevation: 0,
+          currentIndex: 0,
+          selectedItemColor: Colors.pink,
+          unselectedItemColor: Colors.grey,
+          type: BottomNavigationBarType.fixed,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          items: [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'home'),
+            BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: ''),
+            BottomNavigationBarItem(icon: Icon(Icons.favorite), label: ''),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
+            BottomNavigationBarItem(icon: Icon(Icons.tune), label: ''),
+          ],
+        ),
       ),
     );
   }
