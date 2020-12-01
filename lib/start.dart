@@ -3,6 +3,7 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:soshi_app/start_pro.dart';
 import 'package:provider/provider.dart';
 
+
 class Start extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
