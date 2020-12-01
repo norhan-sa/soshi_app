@@ -1,180 +1,199 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:soshi_app/features/home/home_provider.dart';
+
+import 'di.dart';
+import 'sushi_icons.dart';
 
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Column(
+    return Consumer<HomeProvider>(
+      builder: (_, instance, child) {
+        return Scaffold(
+          body: Stack(
             children: [
-              Stack(
+              Column(
                 children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height / 4,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(8),
-                        bottomRight: Radius.circular(8),
-                      ),
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Color(0xFF363C3E),
-                          Color(0xFF323537),
-                          Color(0xFF29292A),
-                          Color(0xFF221C1C),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SafeArea(
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(
-                          20, MediaQuery.of(context).size.height / 16, 20, 10),
-                      child: TextField(
-                        textAlign: TextAlign.center,
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                          prefixIcon: Image.asset('images/Search.png'),
-                          suffixIcon:
-                              Image.asset('images/-_Filter-Filters.png'),
-                          hintText: 'Search your meal',
-                          hintStyle: TextStyle(
-                            color: Color(0xFF9F9F9F),
-                            fontFamily: 'Poppins',
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                  Stack(
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height / 4,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(8),
+                            bottomRight: Radius.circular(8),
                           ),
-                          filled: true,
-                          fillColor: Colors.white,
-                          border: new OutlineInputBorder(
-                            borderRadius: const BorderRadius.all(
-                              const Radius.circular(30.0),
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              Color(0xFF363C3E),
+                              Color(0xFF323537),
+                              Color(0xFF29292A),
+                              Color(0xFF221C1C),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SafeArea(
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(20,
+                              MediaQuery.of(context).size.height / 16, 20, 10),
+                          child: TextField(
+                            textAlign: TextAlign.center,
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                              prefixIcon: Image.asset('images/Search.png'),
+                              suffixIcon:
+                                  Image.asset('images/-_Filter-Filters.png'),
+                              hintText: 'Search your meal',
+                              hintStyle: TextStyle(
+                                color: Color(0xFF9F9F9F),
+                                fontFamily: 'Poppins',
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              filled: true,
+                              fillColor: Colors.white,
+                              border: new OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(
+                                  const Radius.circular(30.0),
+                                ),
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ),
-                ],
-              ),
-              Expanded(
-                child: Container(
-                  child: ListView(
-                    padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                    children: [
-                      Center(
-                        child: Text(
-                          'Sushi Order',
-                          style: TextStyle(
-                            color: Color(0xFFFF4E63),
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(width: 10),
-                          orders('test', context),
-                          orders('test', context),
-                          SizedBox(width: 10),
-                        ],
-                      ),
-                      Center(
-                        child: Text(
-                          'Beverage',
-                          style: TextStyle(
-                            color: Color(0xFFFF4E63),
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(width: 10),
-                          orders('test', context),
-                          orders('test', context),
-                          SizedBox(width: 10),
-                        ],
-                      ),
-                      Center(
-                        child: Text(
-                          'Reserve Room',
-                          style: TextStyle(
-                            color: Color(0xFFFF4E63),
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                        width: MediaQuery.of(context).size.width,
-                        height: 200,
-                        child: ListView(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          children: [
-                            for (int i = 0; i < 5; ++i) getRoomCard(context),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 30),
                     ],
                   ),
-                ),
-              ),
-            ],
-          ),
-          Align(
-            alignment: Alignment.bottomLeft,
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: 50,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(18),
-                  topRight: Radius.circular(18),
-                ),
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey,
-                    offset: Offset(0.0, 1.0), //(x,y)
-                    blurRadius: 6.0,
+                  Expanded(
+                    child: Container(
+                      child: ListView(
+                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        children: [
+                          Center(
+                            child: Text(
+                              'Sushi Order',
+                              style: TextStyle(
+                                color: Color(0xFFFF4E63),
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SizedBox(width: 10),
+                              orders('test', context),
+                              orders('test', context),
+                              SizedBox(width: 10),
+                            ],
+                          ),
+                          Center(
+                            child: Text(
+                              'Beverage',
+                              style: TextStyle(
+                                color: Color(0xFFFF4E63),
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SizedBox(width: 10),
+                              orders('test', context),
+                              orders('test', context),
+                              SizedBox(width: 10),
+                            ],
+                          ),
+                          Center(
+                            child: Text(
+                              'Reserve Room',
+                              style: TextStyle(
+                                color: Color(0xFFFF4E63),
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                            width: MediaQuery.of(context).size.width,
+                            height: 200,
+                            child: ListView(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              children: [
+                                for (int i = 0; i < 5; ++i)
+                                  getRoomCard(context),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 30),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Image.asset('images/-_Home-House-.png'),
-                    Image.asset(
-                      'images/Shopping Cart.png',
-                      color: Colors.grey,
-                    ),
-                    Image.asset('images/-_Love-Heart-Romantic.png'),
-                    Image.asset('images/Path 903.png'),
-                    Image.asset('images/settings-1.png'),
-                  ],
-                ),
-              ),
-            ),
+              // Align(
+              //   alignment: Alignment.bottomLeft,
+              //   child: Container(
+              //     width: MediaQuery.of(context).size.width,
+              //     height: 50,
+              //     decoration: BoxDecoration(
+              //       borderRadius: BorderRadius.only(
+              //         topLeft: Radius.circular(18),
+              //         topRight: Radius.circular(18),
+              //       ),
+              //       color: Colors.white,
+              //       boxShadow: [
+              //         BoxShadow(
+              //           color: Colors.grey,
+              //           offset: Offset(0.0, 1.0), //(x,y)
+              //           blurRadius: 6.0,
+              //         ),
+              //       ],
+              //     ),
+              //     child: Padding(
+              //       padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+              //       child: ,
+              //     ),
+              //   ),
+              // ),
+            ],
           ),
-        ],
-      ),
+          bottomNavigationBar: BottomNavigationBar(
+            currentIndex: instance.currentIndex,
+            selectedItemColor: Colors.pink,
+            unselectedItemColor: Colors.grey,
+            type: BottomNavigationBarType.fixed,
+            onTap: (index) {
+              print('index: $index');
+              // sl<HomeProvider>().setCurrentIndex(index: index);
+              instance.setCurrentIndex(index: index);
+            },
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            items: [
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'home'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.shopping_cart), label: 'Cart'),
+              BottomNavigationBarItem(icon: Icon(Icons.favorite), label: ''),
+              BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
+              BottomNavigationBarItem(icon: Icon(Sushi.settings), label: ''),
+            ],
+          ),
+        );
+      },
     );
   }
 

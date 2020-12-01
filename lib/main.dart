@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-// import 'package:soshi_app/home.dart';
-import 'package:soshi_app/new_home.dart';
-import 'package:soshi_app/start.dart';
-import 'package:soshi_app/start_pro.dart';
 
-void main() {
+import 'di.dart';
+import 'utils_and_services/routing/navigation_service.dart';
+import 'utils_and_services/routing/router.dart' as router;
+import 'utils_and_services/routing/routes.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await init();
+
   runApp(
     MaterialApp(
-      initialRoute: '/',
-      routes: {
-        '/start': (context) => ChangeNotifierProvider<StartPro>(
-              create: (context) => StartPro(),
-              child: Start(),
-            ),
-        '/': (context) => Home(),
-      },
+      navigatorKey: sl<NavigationService>().navigatorKey,
+      initialRoute: home,
+      onGenerateRoute: router.Router.generateRoute,
     ),
   );
 }
